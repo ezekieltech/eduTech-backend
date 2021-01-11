@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# cuustomer user model
+AUTH_USER_MODEL = 'users.CustomUser'
 
 # Application definition
 
@@ -37,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'users.apps.UsersConfig',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -99,6 +104,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'rest_framework.authentication.BasicAuthentication',
+#         'rest_framework.authentication.SessionAuthentication',
+#     ]
+# }
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
