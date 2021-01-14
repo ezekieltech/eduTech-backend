@@ -1,9 +1,25 @@
 from django.utils import timezone
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+
+from mentors.models import MentorProfile
+
 # Create your models here.
+
+MENTOR = 'Mentor'
+MENTEE = 'Mentee'
+EDUCONSULTANT = 'educonsultant'
+
+ROLES = [
+    (MENTOR, 'Mentor'),
+    (MENTEE, 'Mentee'),
+    (EDUCONSULTANT, 'Edu-Consultant')
+    ]
 
 class CustomUserManager (BaseUserManager):
     def create_user(self, email, username, password=None):
@@ -40,8 +56,7 @@ class CustomUserManager (BaseUserManager):
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email           = models.EmailField(verbose_name="email", max_length=60,unique=True)
     username        = models.CharField(max_length=30, unique=True)
-    first_name      = models.CharField(max_length=30, blank=True, null=True)
-    last_name       = models.CharField(max_length=30,blank=True, null=True)
+    role            = models.CharField(max_length=20,  choices=ROLES, default=MENTOR)
     date_joined     = models.DateTimeField(verbose_name="date joined", default=timezone.now)
     last_login      = models.DateTimeField(verbose_name="last login", default=timezone.now)
     is_admin        = models.BooleanField(default=False)
@@ -62,3 +77,20 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def has_module_perms(self, app_label):
         return True
+
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_user_profile(sender, instance, created, **kwargs):
+    """A signal that creates either mentor or mentee or
+    educonsultant profile depending on theinstance.role value
+
+    Arguments:
+        sender {cls} -- The model that send the signal
+        instance {obj} -- instance of the custom user model
+        created {bol} -- returns true if custom user is created
+    """
+
+    if created and instance.role == "Mentor":
+        MentorProfile.objects.create(user=instance)
+    # elif created and instance.role == "Patient":
+    #     PatientProfile.objects.create(user=instance)
