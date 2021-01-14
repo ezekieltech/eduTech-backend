@@ -26,7 +26,8 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
         user = CustomUser(
             email=self.validated_data['email'],
-            username=self.validated_data['username']
+            username=self.validated_data['username'],
+            role=self.validated_data['role']
             )
 
         password = self.validated_data['password']

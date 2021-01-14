@@ -44,8 +44,7 @@ INSTALLED_APPS = [
 
     # installed apps
     'users.apps.UsersConfig',
-    'mentors.apps.MentorsConfig',
-    
+    'profiles.apps.ProfilesConfig',
     
 ]
 

@@ -7,13 +7,13 @@ from django.contrib.auth.models import PermissionsMixin
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
-from mentors.models import MentorProfile
+from profiles.models import MentorProfile, MenteeProfile, EduconsultantProfile
 
 # Create your models here.
 
 MENTOR = 'Mentor'
 MENTEE = 'Mentee'
-EDUCONSULTANT = 'educonsultant'
+EDUCONSULTANT = 'Edu-Consultant'
 
 ROLES = [
     (MENTOR, 'Mentor'),
@@ -56,7 +56,7 @@ class CustomUserManager (BaseUserManager):
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email           = models.EmailField(verbose_name="email", max_length=60,unique=True)
     username        = models.CharField(max_length=30, unique=True)
-    role            = models.CharField(max_length=20,  choices=ROLES, default=MENTOR)
+    role            = models.CharField(max_length=20,  choices=ROLES, default=MENTEE)
     date_joined     = models.DateTimeField(verbose_name="date joined", default=timezone.now)
     last_login      = models.DateTimeField(verbose_name="last login", default=timezone.now)
     is_admin        = models.BooleanField(default=False)
@@ -90,7 +90,9 @@ def create_user_profile(sender, instance, created, **kwargs):
         created {bol} -- returns true if custom user is created
     """
 
-    if created and instance.role == "Mentor":
-        MentorProfile.objects.create(user=instance)
-    # elif created and instance.role == "Patient":
-    #     PatientProfile.objects.create(user=instance)
+    if created and instance.role == "Mentors":
+        MentorsProfile.objects.create(user=instance)
+    elif created and instance.role == "Mentee":
+        MenteeProfile.objects.create(user=instance)
+    elif created and instance.role == "Edu-Consultant":
+        EduconsultantProfile.objects.create(user=instance)
