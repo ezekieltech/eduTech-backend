@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     # installed apps
     'users.apps.UsersConfig',
     'profiles.apps.ProfilesConfig',
-    
+    'courses.apps.CoursesConfig',    
 ]
 
 MIDDLEWARE = [
