@@ -90,8 +90,8 @@ def create_user_profile(sender, instance, created, **kwargs):
         created {bol} -- returns true if custom user is created
     """
 
-    if created and instance.role == "Mentors":
-        MentorsProfile.objects.create(user=instance)
+    if created and instance.role == "Mentor":
+        MentorProfile.objects.create(user=instance)
     elif created and instance.role == "Mentee":
         MenteeProfile.objects.create(user=instance)
     elif created and instance.role == "Edu-Consultant":

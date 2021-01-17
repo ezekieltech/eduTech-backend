@@ -3,13 +3,15 @@ from users.models import CustomUser
 
 class CustomUserSerializer(serializers.ModelSerializer):
 
+
+    profile_mentor  = serializers.PrimaryKeyRelatedField(read_only=True,)
     password2 = serializers.CharField(
         style={'input_type': 'password'}, write_only=True)
 
 
     class Meta:
         model = CustomUser
-        fields = ['email', 'username', 'role','password', 'password2',]
+        fields = ['email', 'username', 'role','password', 'password2','profile_mentor',]
         extra_kwargs = {
             'password': {'write_only': True}
         }

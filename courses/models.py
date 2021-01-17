@@ -11,6 +11,8 @@ class ClassCourse(models.Model):
                                 related_name="classcourse_mentee")
     consultant          = models.ManyToManyField(EduconsultantProfile,                                
                                 related_name="classcourse_educonsultant")
+    course_creator      = models.ForeignKey(MentorProfile, on_delete=models.CASCADE,
+                                related_name='course_creator', null=True, default=None)
     name                =   models.CharField(max_length=30, unique=True,)
     short_description   = models.CharField(max_length=200, blank=True, null=True)
 
