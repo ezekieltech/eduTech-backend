@@ -17,12 +17,6 @@ class MentorProfile(models.Model):
     last_name       = models.CharField(max_length=30,blank=True, null=True)
     bio             = models.TextField(null=True, blank=True)
     gender          = models.CharField(max_length=10, null=True, blank=True)
-    # message = models.ManyToManyField(
-    #     'patients.Messages', blank=True)
-    # assigned_patients = models.ManyToManyField(
-    #     'patients.PatientProfile', blank=True)
-    # list_of_classes = models.ManyToManyField(
-    #     'ExpertClass', blank=True)
 
     def __str__(self):
         return self.user.username
@@ -37,16 +31,11 @@ class MenteeProfile(models.Model):
                                 limit_choices_to={'role': 'Mentee'},
                                 on_delete=models.CASCADE,
                                 related_name="profile_mentee")
+    my_mentor       = models.ManyToManyField(MentorProfile, related_name='mentee_mentor',blank=True)
     first_name      = models.CharField(max_length=30, blank=True, null=True)
     last_name       = models.CharField(max_length=30,blank=True, null=True)
     bio             = models.TextField(null=True, blank=True)
     gender          = models.CharField(max_length=10, null=True, blank=True)
-    # message = models.ManyToManyField(
-    #     'patients.Messages', blank=True)
-    # assigned_patients = models.ManyToManyField(
-    #     'patients.PatientProfile', blank=True)
-    # list_of_classes = models.ManyToManyField(
-    #     'ExpertClass', blank=True)
 
     def __str__(self):
         return self.user.username
@@ -66,12 +55,6 @@ class EduconsultantProfile(models.Model):
     last_name       = models.CharField(max_length=30,blank=True, null=True)
     bio             = models.TextField(null=True, blank=True)
     gender          = models.CharField(max_length=10, null=True, blank=True)
-    # message = models.ManyToManyField(
-    #     'patients.Messages', blank=True)
-    # assigned_patients = models.ManyToManyField(
-    #     'patients.PatientProfile', blank=True)
-    # list_of_classes = models.ManyToManyField(
-    #     'ExpertClass', blank=True)
 
     def __str__(self):
         return self.user.username
