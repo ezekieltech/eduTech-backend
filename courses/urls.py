@@ -6,7 +6,9 @@ from courses import views
 router = DefaultRouter()
 router.register(r'classcourses', views.ClassCourseViewSet)
 router.register(r'lectures', views.ClassCourseLecturesViewSet)
+router.register(r'fileslectures', views.LecturesFilesViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
 ]
+

@@ -21,3 +21,11 @@ class ClassCourseLectures(models.Model):
                                 related_name="classcourse_lectures", null=True,blank=True)
     title               =   models.CharField(max_length=30)
     short_description   = models.CharField(max_length=200, blank=True, null=True)
+
+
+class LecturesFiles (models.Model):
+    files_lectures      =   models.ManyToManyField(ClassCourseLectures, 
+                                related_name='files_of_ClassCourseLectures',)
+    video_file          =   models.FileField(upload_to='lecture_video_files',blank=True,null=True)
+    document_file       =   models.FileField(upload_to='lecture_document_files',blank=True,null=True)
+    text_content        =   models.TextField(blank=True,null=True)

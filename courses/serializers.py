@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from courses.models import ClassCourse, ClassCourseLectures
+from courses.models import ClassCourse, ClassCourseLectures, LecturesFiles
 
 class ClassCourseSerializer(serializers.ModelSerializer):
 
@@ -14,3 +14,9 @@ class ClassCourseLecturesSerializers(serializers.ModelSerializer):
     class Meta:
         model = ClassCourseLectures
         fields = ['title','lectures']
+
+
+class LecturesFilesSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = LecturesFiles
+        fields  = '__all__'
