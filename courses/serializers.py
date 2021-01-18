@@ -4,10 +4,11 @@ from courses.models import ClassCourse, ClassCourseLectures, LecturesFiles
 class ClassCourseSerializer(serializers.ModelSerializer):
 
     classcourse_lectures = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    course_creator = serializers.ReadOnlyField(source='course_creator.username') # same as CharField(read_only=True)
 
     class Meta:
         model = ClassCourse
-        fields = ['name','classcourse_lectures','teacher','consultant']
+        fields = ['course_creator','name','classcourse_lectures','teacher','consultant',]
 
 class ClassCourseLecturesSerializers(serializers.ModelSerializer):
 

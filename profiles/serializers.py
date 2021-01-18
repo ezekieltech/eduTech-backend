@@ -42,6 +42,7 @@ class MentorProfileSerializer(serializers.ModelSerializer):
 
     classcourse_mentor = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     mentee_mentor        = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    course_creator      =  serializers.StringRelatedField(many=True, read_only=True)
 
     users = serializers.SerializerMethodField()
 
@@ -55,7 +56,7 @@ class MentorProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MentorProfile
-        fields = ['users', 'first_name', 'last_name', 'bio','classcourse_mentor','mentee_mentor']
+        fields = ['users', 'first_name', 'last_name', 'bio','classcourse_mentor','mentee_mentor','course_creator']
 
 
 class MenteeProfileSerializer(serializers.ModelSerializer):
