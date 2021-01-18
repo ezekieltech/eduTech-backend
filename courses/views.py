@@ -27,9 +27,10 @@ class ClassCourseLecturesViewSet(viewsets.ModelViewSet):
 
     queryset = ClassCourseLectures.objects.all()
     serializer_class = ClassCourseLecturesSerializers
-    # permission_classes = [permissions.IsAuthenticatedOrReadOnly,]
+    permission_classes = [permissions.IsAuthenticated,]
 
 class LecturesFilesViewSet(viewsets.ModelViewSet):
     parser_class = (FileUploadParser,)
     queryset = LecturesFiles.objects.all()
     serializer_class = LecturesFilesSerializers
+    permission_classes = [permissions.IsAuthenticated,]
