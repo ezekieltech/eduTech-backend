@@ -35,7 +35,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # Raises django's ImproperlyConfigured exception if SECRET_KEY not in os.environ
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = env.str('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # False if not in os.environ
@@ -116,9 +116,9 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': env('POSTGRESS_NAME'),
-            'USER': env('POSTGRESS_USER'),
-            'PASSWORD': env('POSTGRESS_PSSWRD'),
+            'NAME': env.str('POSTGRESS_NAME'),
+            'USER': env.str('POSTGRESS_USER'),
+            'PASSWORD': env.str('POSTGRESS_PSSWRD'),
             'HOST': '',
             'PORT': '',
         }
