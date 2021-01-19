@@ -12,5 +12,5 @@ class CustomUserViewSet(viewsets.ModelViewSet):
     
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
-    permission_classes = [permissions.IsAuthenticated,]
+    # permission_classes = [permissions.IsAuthenticated,]
     http_method_names = ['post','get']
