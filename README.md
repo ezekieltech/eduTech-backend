@@ -27,6 +27,7 @@ However, if you wish to set up locally within your local environment, here are t
 ## User Sign-up
 ### Request
 ``` POST /users/ ```
+
 Parameters are
 - email
 - username
@@ -53,6 +54,7 @@ The profile of the user is automatically created as well
 
 ### Request
 ``` POST /auth/jwt/create/ ```
+
 Parameters are
 - email
 - password
