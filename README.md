@@ -12,12 +12,44 @@ The API is deployed at https://mysterious-castle-94559.herokuapp.com
 
 However, if you wish to set up locally within your local environment, here are the instructions:
 
-### Installing
+### Dependencies
+
+Python ~3.7
+
+### Clone repository
+
 ```git clone https://github.com/ezekieltech/eduTech-backend.git ```
+
+### Create virtual environment
+
+```pip install virtualenv```
+
+create virtual environment
+```virtual venv```
+
+Activate:
+On Mac
+```source venv/bin/activate```
+
+On Windows
+```./venv/scripts/activate```
+
+### Install your requirements
 
 ``` pip install -r requirements.txt ```
 
+### Generate a new secret key
+
+I like using [Djecrety](https://djecrety.ir/) to quickly generate secure secret keys.
+
+### Make your migrations
+
 ``` python manage.py migrate ```
+
+### Create a new superuser
+
+```python manage.py createsuperuser```
+Respond to the prompts
 
 ### Executing
 ``` python manage.py runserver ```
