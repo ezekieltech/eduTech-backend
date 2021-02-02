@@ -6,10 +6,6 @@ from profiles.models import MentorProfile, MenteeProfile, EduconsultantProfile
 from users.models import CustomUser
 from courses.models import ClassCourse
 
-from users.serializers import CustomUserSerializer
-
-
-
 
 class ClassCourseRelatedField(serializers.RelatedField):
     """A serliazer class of type related field,

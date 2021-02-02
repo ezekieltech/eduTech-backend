@@ -1,7 +1,24 @@
 from rest_framework import serializers
 from users.models import CustomUser
 
+from profiles.serializers import MentorProfileSerializer
+from profiles.models import MentorProfile
+
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+
+    def validate(self, attrs):
+        ## This data variable will contain refresh and access tokens
+        data = super().validate(attrs)
+        ## You can add more User model's attributes like username,email etc. in the data dictionary like this.
+        data['email'] = self.user.email
+        data['username'] = self.user.username
+        profile = MentorProfile.objects.get(user=self.user)
+        s = MentorProfileSerializer(profile)
+        data['profile'] = s.data
+        return data
 
 class CustomUserSerializer(serializers.ModelSerializer):
 
@@ -34,6 +51,9 @@ class CustomUserSerializer(serializers.ModelSerializer):
                 'refresh': str(refresh),
                 'access': str(refresh.access_token)
                 }
+            return data
+
+        if self.context['request'].GET:
             return data
 
     def save(self):

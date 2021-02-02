@@ -20,11 +20,14 @@ from django.conf.urls.static import static
 
 from rest_framework.authtoken import views
 
+from users import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('profiles.urls')),
     path('', include('users.urls')),
     path('', include('courses.urls')),
+    path('auth/jwt/token/', views.CustomTokenObtainPairView.as_view(), name='custom_token_obtain_pair'),
     path('auth/', include('djoser.urls')),
 
     # provides for jwt/create/ to generate tokens for users
