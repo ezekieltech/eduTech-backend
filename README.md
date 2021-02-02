@@ -85,7 +85,7 @@ The profile of the user is automatically created as well
 ## User Log in
 
 ### Request
-``` POST /auth/jwt/create/ ```
+``` POST /auth/jwt/token/ ```
 
 Parameters are
 - email
@@ -95,8 +95,18 @@ Parameters are
 
 ```
 {
-    "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTYxMTE0ODY5OCwianRpIjoiZDBhYzRiMDIxMjNmNDdkNDliMjUwNTExYWUyNWQ0OGUiLCJ1c2VyX2lkIjo3fQ.NENCInjBN1oWG3XkR-YVRq5YP1g5EUeNANQVG7gSWFE",
-    "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjExMDYyNTk4LCJqdGkiOiI3NDUzM2NhZDExZDI0MThmOTZmNzIyZGRjY2IyZjI3OCIsInVzZXJfaWQiOjd9.i4WEWt3ORRpygaqbn8I7b91nEmh-6SWV5NF0hS6cf1E"
+    "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTYxMjM0NjYyMiwianRpIjoiYTZjMGRkM2U4MmRkNGNlNGFmOTQyYTQwYzBlMjg3MTgiLCJ1c2VyX2lkIjo0fQ.tFR0oe2ZtDml0tp0xFQVFfRC4QUM99spKT6Louea-Y0",
+    "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjEyMjYwNTIyLCJqdGkiOiI3MDNlYzUxZDI2MDc0OTRkOTJhYzYxZjkxMDgyYTBlZiIsInVzZXJfaWQiOjR9.4n5_fkrlPLf1gGVZ_CdQWX1NcjatohxrDsfsPjNIUks",
+    "email": "admin4@example.com",
+    "username": "admin4",
+    "profile": {
+        "first_name": null,
+        "last_name": null,
+        "bio": null,
+        "classcourse_mentor": [],
+        "mentee_mentor": [],
+        "course_creator": []
+    }
 }
 ```
 

@@ -1,5 +1,3 @@
-import jsons
-
 from rest_framework import serializers
 
 from profiles.models import MentorProfile, MenteeProfile, EduconsultantProfile
@@ -31,61 +29,27 @@ class ClassCourseRelatedField(serializers.RelatedField):
 
 class MentorProfileSerializer(serializers.ModelSerializer):
 
-    # mentor_courses = ClassCourseRelatedField(
-    #     queryset=ClassCourse.objects.all(),
-    #     many=True
-    # )
-
     classcourse_mentor = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     mentee_mentor        = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     course_creator      =  serializers.StringRelatedField(many=True, read_only=True)
 
-    users = serializers.SerializerMethodField()
-
-    def get_users(self, MentorProfile):
-        users = CustomUser.objects.filter(
-            role='Mentor').values(
-            'username', 'email','role')
-        users_to_json = jsons.dump(
-            users)  # gets the queryset serlizable
-        return users
-
     class Meta:
         model = MentorProfile
-        fields = ['users', 'first_name', 'last_name', 'bio','classcourse_mentor','mentee_mentor','course_creator']
+        fields = ['first_name', 'last_name', 'bio','classcourse_mentor','mentee_mentor','course_creator']
 
 
 class MenteeProfileSerializer(serializers.ModelSerializer):
 
 
     classcourse_mentee        = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    users = serializers.SerializerMethodField()
-
-    def get_users(self, MentorProfile):
-        users = CustomUser.objects.filter(
-            role='Mentee').values(
-            'username', 'email','role')
-        users_to_json = jsons.dump(
-            users)  # gets the queryset serlizable
-        return users
 
     class Meta:
         model = MenteeProfile
-        fields = ['users', 'first_name', 'last_name', 'bio','my_mentor','classcourse_mentee',]
+        fields = ['first_name', 'last_name', 'bio','my_mentor','classcourse_mentee',]
 
 
 class EduconsultantProfileSerializer(serializers.ModelSerializer):
 
-    users = serializers.SerializerMethodField()
-
-    def get_users(self, MentorProfile):
-        users = CustomUser.objects.filter(
-            role='Edu-Consultant').values(
-            'username', 'email','role')
-        users_to_json = jsons.dump(
-            users)  # gets the queryset serlizable
-        return users
-
     class Meta:
         model = EduconsultantProfile
-        fields = ['users', 'first_name', 'last_name', 'bio']
+        fields = ['first_name', 'last_name', 'bio']
