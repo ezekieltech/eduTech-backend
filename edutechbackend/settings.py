@@ -62,6 +62,8 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'profiles.apps.ProfilesConfig',
     'courses.apps.CoursesConfig',
+    'catalogue.apps.CatalogueConfig',
+
     'rest_framework.authtoken',
     'djoser',
     'corsheaders',
