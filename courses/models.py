@@ -16,6 +16,8 @@ class ClassCourse(models.Model):
     name                =   models.CharField(max_length=30, unique=True,)
     short_description   = models.CharField(max_length=200, blank=True, null=True)
 
+    def __str__(self):
+        return self.name +',' + str(self.id)
 
 class ClassCourseLectures(models.Model):
     lectures            = models.ForeignKey('ClassCourse',

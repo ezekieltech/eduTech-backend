@@ -92,7 +92,7 @@ def create_user_profile(sender, instance, created, **kwargs):
 
     if created and instance.role == "Mentor":
         MentorProfile.objects.create(user=instance)
-    elif created and instance.role == "Mentee":
+    if created and instance.role == "Mentee":
         MenteeProfile.objects.create(user=instance)
-    elif created and instance.role == "Edu-Consultant":
+    if created and instance.role == "Edu-Consultant":
         EduconsultantProfile.objects.create(user=instance)

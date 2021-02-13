@@ -30,22 +30,22 @@ class ClassCourseRelatedField(serializers.RelatedField):
 class MentorProfileSerializer(serializers.ModelSerializer):
 
     classcourse_mentor = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    mentee_mentor        = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    # profile_mentor        = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     course_creator      =  serializers.StringRelatedField(many=True, read_only=True)
 
     class Meta:
         model = MentorProfile
-        fields = ['first_name', 'last_name', 'bio','classcourse_mentor','mentee_mentor','course_creator']
+        fields = ['first_name', 'last_name', 'bio', 'classcourse_mentor','course_creator']
 
 
 class MenteeProfileSerializer(serializers.ModelSerializer):
 
 
-    classcourse_mentee        = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    classcourse_mentee        = serializers.StringRelatedField(many=True, read_only=True)
 
     class Meta:
         model = MenteeProfile
-        fields = ['first_name', 'last_name', 'bio','my_mentor','classcourse_mentee',]
+        fields = ['first_name', 'last_name', 'bio','classcourse_mentee',]
 
 
 class EduconsultantProfileSerializer(serializers.ModelSerializer):

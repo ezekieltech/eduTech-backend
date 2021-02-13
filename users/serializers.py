@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from users.models import CustomUser
 
-from profiles.serializers import MentorProfileSerializer
+from profiles.serializers import MentorProfileSerializer, MenteeProfileSerializer
 from profiles.models import MentorProfile
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -23,14 +23,23 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 class CustomUserSerializer(serializers.ModelSerializer):
 
     tokens = serializers.SerializerMethodField()
-    profile_mentor  = serializers.PrimaryKeyRelatedField(read_only=True,)
+    profile_mentor  = MentorProfileSerializer(read_only=True)
+    profile_mentee  = MenteeProfileSerializer(read_only=True)
     password2 = serializers.CharField(
         style={'input_type': 'password'}, write_only=True)
 
 
     class Meta:
         model = CustomUser
-        fields = ['email', 'username', 'role','password', 'password2','profile_mentor','tokens']
+        fields = [
+            'email',
+            'username',
+            'role',
+            'password',
+            'password2',
+            'profile_mentor',
+            'profile_mentee',
+            'tokens']
         extra_kwargs = {
             'password': {'write_only': True}
         }
@@ -51,9 +60,6 @@ class CustomUserSerializer(serializers.ModelSerializer):
                 'refresh': str(refresh),
                 'access': str(refresh.access_token)
                 }
-            return data
-
-        if self.context['request'].GET:
             return data
 
     def save(self):
