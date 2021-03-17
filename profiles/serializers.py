@@ -3,6 +3,31 @@ from rest_framework import serializers
 from profiles.models import MentorProfile, MenteeProfile, EduconsultantProfile
 from users.models import CustomUser
 from courses.models import ClassCourse
+from catalogue.models import BookInstance
+
+
+class BookInstanceRelatedField(serializers.RelatedField):
+    """A serliazer class of type related field,
+    overides how the output ClassCourse in the
+    serializers
+
+    Arguments:
+        serializers {RelatedField} --
+        for defining how the output ClassCourse
+    """
+
+    # defines how the object is displayed
+    def display_value(self, instance):
+        return instance
+
+    # defines how the object Genre is displayed in the output (JSON or XML)
+    def to_representation(self, value):
+        return str(value)
+
+    # gets an object Message for the given value
+    def to_internal_value(self, data):
+        return BookInstance.objects.get(name=data)
+
 
 
 class ClassCourseRelatedField(serializers.RelatedField):
@@ -30,22 +55,23 @@ class ClassCourseRelatedField(serializers.RelatedField):
 class MentorProfileSerializer(serializers.ModelSerializer):
 
     classcourse_mentor = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    mentee_mentor        = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    # profile_mentor        = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     course_creator      =  serializers.StringRelatedField(many=True, read_only=True)
+    # book_instance      =  serializers.StringRelatedField(many=True, read_only=True)
 
     class Meta:
         model = MentorProfile
-        fields = ['first_name', 'last_name', 'bio','classcourse_mentor','mentee_mentor','course_creator']
+        fields = ['first_name', 'last_name', 'bio', 'classcourse_mentor','course_creator',]
 
 
 class MenteeProfileSerializer(serializers.ModelSerializer):
 
 
-    classcourse_mentee        = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    classcourse_mentee        = serializers.StringRelatedField(many=True, read_only=True)
 
     class Meta:
         model = MenteeProfile
-        fields = ['first_name', 'last_name', 'bio','my_mentor','classcourse_mentee',]
+        fields = ['first_name', 'last_name', 'bio','classcourse_mentee',]
 
 
 class EduconsultantProfileSerializer(serializers.ModelSerializer):

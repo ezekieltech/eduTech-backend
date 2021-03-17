@@ -62,6 +62,8 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'profiles.apps.ProfilesConfig',
     'courses.apps.CoursesConfig',
+    'catalogue.apps.CatalogueConfig',
+
     'rest_framework.authtoken',
     'djoser',
     'corsheaders',
@@ -109,9 +111,10 @@ if DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),     
         }
     }
+
 else:
     DATABASES = {
         'default': {
@@ -124,6 +127,13 @@ else:
         }
     }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),     
+#     }
+# }
+# print (DATABASES['default']['NAME'])
 
 
 # Password validation

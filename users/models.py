@@ -48,6 +48,7 @@ class CustomUserManager (BaseUserManager):
         user.is_admin = True
         user.is_staff = True
         user.is_superuser = True
+        user.role = "Mentor"
 
         user.save(using=self._db)
         return user
@@ -56,7 +57,7 @@ class CustomUserManager (BaseUserManager):
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email           = models.EmailField(verbose_name="email", max_length=60,unique=True)
     username        = models.CharField(max_length=30, unique=True)
-    role            = models.CharField(max_length=20,  choices=ROLES, default=MENTEE)
+    role            = models.CharField(max_length=20,  choices=ROLES, default=MENTOR)
     date_joined     = models.DateTimeField(verbose_name="date joined", default=timezone.now)
     last_login      = models.DateTimeField(verbose_name="last login", default=timezone.now)
     is_admin        = models.BooleanField(default=False)
@@ -92,7 +93,7 @@ def create_user_profile(sender, instance, created, **kwargs):
 
     if created and instance.role == "Mentor":
         MentorProfile.objects.create(user=instance)
-    elif created and instance.role == "Mentee":
+    if created and instance.role == "Mentee":
         MenteeProfile.objects.create(user=instance)
-    elif created and instance.role == "Edu-Consultant":
+    if created and instance.role == "Edu-Consultant":
         EduconsultantProfile.objects.create(user=instance)

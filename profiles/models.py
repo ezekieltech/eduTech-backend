@@ -25,7 +25,7 @@ class MentorProfile(UserProfile):
                                 related_name="profile_mentor")
 
     def __str__(self):
-        return self.user.username
+        return f'{self.first_name}, {self.last_name}'
 
 class MenteeProfile(UserProfile):
     """A django model for mentor profile
@@ -37,7 +37,7 @@ class MenteeProfile(UserProfile):
                                 limit_choices_to={'role': 'Mentee'},
                                 on_delete=models.CASCADE,
                                 related_name="profile_mentee")
-    my_mentor       = models.ManyToManyField(MentorProfile, related_name='mentee_mentor',blank=True)
+    # my_mentor       = models.ManyToManyField(MentorProfile, related_name='mentee_mentor',blank=True)
 
     def __str__(self):
         return self.user.username
@@ -55,5 +55,5 @@ class EduconsultantProfile(UserProfile):
                                 related_name="profile_educonsultant")
 
     def __str__(self):
-        return self.user.username
+        return f'{self.first_name}, {self.last_name}'
 
