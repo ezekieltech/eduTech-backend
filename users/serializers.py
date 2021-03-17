@@ -3,6 +3,7 @@ from users.models import CustomUser
 
 from profiles.serializers import MentorProfileSerializer, MenteeProfileSerializer
 from profiles.models import MentorProfile
+from catalogue.serializers import RenewBookFormSerializer
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -25,6 +26,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
     tokens = serializers.SerializerMethodField()
     profile_mentor  = MentorProfileSerializer(read_only=True)
     profile_mentee  = MenteeProfileSerializer(read_only=True)
+    books_borrowed = serializers.StringRelatedField(many=True)
     password2 = serializers.CharField(
         style={'input_type': 'password'}, write_only=True)
 
@@ -39,7 +41,9 @@ class CustomUserSerializer(serializers.ModelSerializer):
             'password2',
             'profile_mentor',
             'profile_mentee',
-            'tokens']
+            'tokens',
+            'books_borrowed'
+            ]
         extra_kwargs = {
             'password': {'write_only': True}
         }

@@ -27,7 +27,7 @@ urlpatterns = [
     path('', include('profiles.urls')),
     path('', include('users.urls')),
     path('', include('courses.urls')),
-    # path('', include('catalogue.urls')),
+    path('', include('catalogue.urls')),
 
     path('auth/jwt/token/', views.CustomTokenObtainPairView.as_view(), name='custom_token_obtain_pair'),
     path('auth/', include('djoser.urls')),

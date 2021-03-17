@@ -25,7 +25,7 @@ class MentorProfile(UserProfile):
                                 related_name="profile_mentor")
 
     def __str__(self):
-        return self.user.username
+        return f'{self.first_name}, {self.last_name}'
 
 class MenteeProfile(UserProfile):
     """A django model for mentor profile
@@ -55,5 +55,5 @@ class EduconsultantProfile(UserProfile):
                                 related_name="profile_educonsultant")
 
     def __str__(self):
-        return self.user.username
+        return f'{self.first_name}, {self.last_name}'
 

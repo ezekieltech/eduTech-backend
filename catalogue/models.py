@@ -1,7 +1,10 @@
 import uuid # Required for unique book instances
+import datetime
 
 from django.db import models
 from django.urls import reverse
+
+from users.models import CustomUser
 
 # Create your models here.
 class Genre(models.Model):
@@ -28,7 +31,7 @@ class Book(models.Model):
 
     def __str__(self):
         """String for representing the Model object."""
-        return self.title
+        return self.title, self.id
 
     def get_absolute_url(self):
         """Returns the url to access a detail record for this book."""
@@ -40,6 +43,7 @@ class BookInstance(models.Model):
     book = models.ForeignKey('Book', on_delete=models.RESTRICT)
     imprint = models.CharField(max_length=200)
     due_back = models.DateField(null=True, blank=True)
+    borrower = models.ForeignKey(CustomUser, related_name='books_borrowed', on_delete=models.SET_NULL, null=True, blank=True)
 
     LOAN_STATUS = (
         ('m', 'Maintenance'),
@@ -56,12 +60,18 @@ class BookInstance(models.Model):
         help_text='Book availability',
     )
 
+    @property
+    def is_overdue(self):
+        if self.due_back and datetime.date.today() > self.due_back:
+            return True
+        return False
+
     class Meta:
         ordering = ['due_back']
 
     def __str__(self):
         """String for representing the Model object."""
-        return f'{self.id} ({self.book.title})'
+        return f'{self.book.title},{self.id}'
 
 
 class Author(models.Model):
