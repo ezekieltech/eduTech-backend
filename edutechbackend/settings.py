@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import django_heroku
 
 import os
+import dj_database_url
 
 import environ
 # since the .env is ignored by git, by default DEBUG is False
@@ -115,16 +116,7 @@ if DEBUG:
     }
 
 else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': env.str('POSTGRESS_NAME'),
-            'USER': env.str('POSTGRESS_USER'),
-            'PASSWORD': env.str('POSTGRESS_PSSWRD'),
-            'HOST': '',
-            'PORT': '',
-        }
-    }
+    DATABASES['default'] = dj_database_url.parse('postgres://...', conn_max_age=600)
 
 # DATABASES = {
 #     'default': {
