@@ -110,12 +110,16 @@ WSGI_APPLICATION = 'edutechbackend.wsgi.application'
 if DEBUG:
     DATABASES = {
         'default': {
-            # 'ENGINE': 'django.db.backends.sqlite3',
-            # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),     
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('POSTGRESS_NAME'),  
+            'USER': os.getenv('POSTGRESS_USER'),
+            'PASSWORD': os.getenv('POSTGRESS_PSSWRD'),
+            'HOST': 'localhost',
+            'PORT': '5432'   
         }
     }
-    db_from_env = dj_database_url.config(conn_max_age=500)
-    DATABASES['default'].update(db_from_env)
+    # db_from_env = dj_database_url.config(conn_max_age=500)
+    # DATABASES['default'].update(db_from_env)
 else:
     DATABASES = {
         'default': {
@@ -223,4 +227,4 @@ LOGGING = {
     }
 }
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
